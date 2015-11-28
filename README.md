@@ -33,6 +33,23 @@ sum(3, 4, 5); // TypeError - Too many arguments
 sum('a', 'b'); // TypeError - wrong types
 ```
 
+If you would like to define your annotations apart from your functions, simply leave off the `fn` property. You will then get a function in which you can pass in a function to annotate.
+
+```js
+var snug = require('snug');
+
+var sumAnnotation = snug.annotate({
+  inputs: [lodash.isNumber, lodash.isNumber],
+  outputs: [lodash.isNumber]
+});
+
+var sum = sumAnnotation(function(a, b) {
+  return a + b;
+});
+
+sum(3, '4'); // TypeError
+```
+
 ### Catching Errors
 
 Sometimes, you want to make a function fail gracefully. You can do this with the `catch` function.

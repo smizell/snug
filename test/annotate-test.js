@@ -36,6 +36,21 @@ describe('Annotate', function() {
     });
   });
 
+  context('when a function is not provided', function() {
+    var sumAnnotation = annotate({
+      inputs: [lodash.isNumber, lodash.isNumber],
+      outputs: [lodash.isNumber]
+    });
+
+    it('accepts a function to annotate', function() {
+      var sum = sumAnnotation(function(a, b) {
+        return a + b;
+      });
+
+      expect(sum(3, 4)).to.equal(7);
+    });
+  });
+
   context('when setting up an invalid function', function() {
     var sum = annotate({
       inputs: [lodash.isNumber, lodash.isNumber],
