@@ -14,7 +14,7 @@ npm install snug
 
 ### Type Annotations
 
-Make your input and output values snug. The `inputs` arrays corresponds to the respective input arguments. Functions are expected, so you can add whatever logic you desire for your type.
+Make your input and output values snug. The `inputs` arrays corresponds to the respective input arguments. Functions are expected, so you can add whatever logic you desire for your type. If you do not specify any `inputs` or `outputs`, there will be no checks.
 
 ```js
 var snug = require('snug');
