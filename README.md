@@ -71,6 +71,31 @@ var sum = snug.annotate({
 sum('a', 'b'); // TypeError is caught, calls catch function, returns 0
 ```
 
+### Creating Prototype Chains
+
+Sometimes you may want to create prototype chains. The code gets really ugly when doing that and using annotations. Using the `create` method will let you build a prototype chain that are annotation objects. Note how the `fn` functions use `this`. 
+
+```js
+var MyFunction = snug.create({
+  constructor: {
+    fn: function(a) {
+      this.a = a;
+    }
+  },
+
+  add: {
+    inputs: [lodash.isNumber],
+    outputs: [lodash.isNumber],
+    fn: function(b) {
+      return this.a + b;
+    }
+  }
+});
+
+var myFn = new MyFunction(1);
+myFn.add(2); // Returns 3
+```
+
 ### Logic
 
 Sometimes, you need to get fancy with your annotations.

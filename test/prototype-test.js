@@ -2,24 +2,27 @@ var expect = require('chai').expect;
 var lodash = require('lodash');
 
 var annotate = require('../lib/index').annotate;
+var create = require('../lib/index').create;
 
 describe('Prototype Test', function() {
   var MyFunction;
 
   before(function() {
-    MyFunction = function(a) {
-      this.a = a;
-    };
+    MyFunction = create({
+      constructor: {
+        fn: function(a) {
+          this.a = a;
+        }
+      },
 
-    MyFunction.prototype.add = function() {
-      return annotate({
-       inputs: [lodash.isNumber],
-       outputs: [lodash.isNumber],
-       fn: function(b) {
-         return this.a + b;
-       }
-     }).apply(this, arguments);
-    }
+      add: {
+        inputs: [lodash.isNumber],
+        outputs: [lodash.isNumber],
+        fn: function(b) {
+          return this.a + b;
+        }
+      }
+    });
   });
 
   it('returns the correct value', function() {
