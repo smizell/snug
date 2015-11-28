@@ -145,3 +145,24 @@ var inc = snug.annotate({
   }
 });
 ```
+
+#### each
+
+Ensures the value is an array and each item of the array passes the check given.
+
+```js
+var snug = require('snug');
+
+// Input value must be array of numbers
+var inc = snug.annotate({
+  inputs: [snug.logic.each(lodash.isNumber)],
+  outputs: [lodash.isNumber],
+  fn: function(a) {
+    return a.map(function(item) {
+      return item + 1;
+    });
+  }
+});
+
+inc([1, 2, 3]); // No errors
+```
