@@ -1,5 +1,7 @@
 # Snug
 
+[![Build Status](https://travis-ci.org/smizell/snug.svg?branch=master)](https://travis-ci.org/smizell/snug)
+
 Make your functions safe.
 
 ## Install
