@@ -4,7 +4,7 @@ var lodash = require('lodash');
 var structures = require('../lib/index').structures;
 
 describe('Structures', function() {
-  describe('#array', function() {
+  describe('#typedArray', function() {
     var check = structures.typedArray(lodash.isNumber);
 
     context('when given a correct value', function() {

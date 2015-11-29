@@ -196,6 +196,8 @@ var inc = snug.annotate({
 
 #### wildcard
 
+Maybe you don't care about the type of a given value. If so, you can use `wildcard` to say any type is fine.
+
 ```js
 var snug = require('snug');
 
@@ -209,3 +211,14 @@ var inc = snug.annotate({
   }
 });
 ```
+
+#### optional
+
+You may have figured out to use the `or` function with an `isUndefined` check as the first item, but that gets kind of verbose after a while. You can use `optional` to do a check or pass if the value is undefined.
+
+```js
+var check = snug.logic.optional(lodash.isNumber);
+
+check(4); // True
+check('4'); // False
+check(); // True
