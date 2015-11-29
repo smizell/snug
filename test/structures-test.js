@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var lodash = require('lodash');
 
 var structures = require('../lib/index').structures;
+var logic = require('../lib/index').logic;
 
 describe('Structures', function() {
   describe('#typedArray', function() {
@@ -29,7 +30,7 @@ describe('Structures', function() {
   describe('#object', function() {
     var check = structures.object({
       foo: lodash.isNumber,
-      bar: lodash.isBoolean
+      bar: logic.optional(lodash.isBoolean)
     });
 
     context('when given a correct value', function() {
@@ -53,6 +54,22 @@ describe('Structures', function() {
     context('when not given an object', function() {
       it('returns false', function() {
         expect(check(1)).to.be.false;
+      });
+    });
+
+    context('when a required value is missing', function() {
+      it('returns false', function() {
+        expect(check({
+          bar: true
+        })).to.be.false;
+      });
+    });
+
+    context('when an optional value is missing', function() {
+      it('returns true', function() {
+        expect(check({
+          foo: 4
+        })).to.be.true;
       });
     });
   });
