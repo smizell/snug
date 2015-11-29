@@ -1,6 +1,6 @@
 {
   "name": "snug",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Make your functions safe.",
   "main": "index.js",
   "scripts": {

@@ -96,26 +96,4 @@ describe('Logic', function() {
       });
     });
   });
-
-  describe('#each', function() {
-    var check = logic.each(lodash.isNumber);
-
-    context('when given a correct value', function() {
-      it('returns true', function() {
-        expect(check([1, 2, 3])).to.be.true;
-      });
-    });
-
-    context('when given an incorrect value', function() {
-      it('returns false', function() {
-        expect(check([1, 2, 'a'])).to.be.false;
-      });
-    });
-
-    context('when not given an array', function() {
-      it('returns false', function() {
-        expect(check(1)).to.be.false;
-      });
-    });
-  });
 });

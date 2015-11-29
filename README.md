@@ -73,7 +73,7 @@ sum('a', 'b'); // TypeError is caught, calls catch function, returns 0
 
 ### Creating Prototype Chains
 
-Sometimes you may want to create prototype chains. The code gets really ugly when doing that and using annotations. Using the `create` method will let you build a prototype chain that are annotation objects. Note how the `fn` functions use `this`. 
+Sometimes you may want to create prototype chains. The code gets really ugly when doing that and using annotations. Using the `create` method will let you build a prototype chain that are annotation objects. Note how the `fn` functions use `this`.
 
 ```js
 var MyFunction = snug.create({
@@ -94,6 +94,45 @@ var MyFunction = snug.create({
 
 var myFn = new MyFunction(1);
 myFn.add(2); // Returns 3
+```
+
+### Structures
+
+You may want to iterate over an object or array to see if every item passes a certain check. There are two functions to help with this.
+
+#### Typed Array Structure
+
+This ensures that every item in the array passes a single test.
+
+```js
+var check = snug.structures.typedArray(lodash.isNumber);
+check([1, 2, 3]); // True
+check([1, '2', 3]); // False
+```
+
+#### Object Structure
+
+This looks at every key in an object and checks to see if each passes the check.
+
+```js
+var check = snug.structures.object({
+  foo: lodash.isNumber,
+  bar: lodash.isBoolean
+});
+
+check({
+  foo: 4,
+  bar: true
+}); // True
+
+check({
+  foo: 4,
+  bar: 'true'
+}); // False
+
+check({
+  foo: 4
+}); // False
 ```
 
 ### Logic
