@@ -142,56 +142,39 @@ Sometimes, you need to get fancy with your annotations.
 #### and
 
 ```js
-var snug = require('snug');
+var check = snug.logic.and([
+  lodash.isNumber,
+  function(value) { return value < 10; }
+]);
 
-// Input value must be a number AND less than 10
-var inc = snug.annotate({
-  inputs: [snug.logic.and([
-    lodash.isNumber,
-    function(value) { return value < 10; }
-  ])],
-  outputs: [lodash.isNumber],
-  fn: function(a) {
-    return a + 1;
-  }
-});
+check(4); // True
+check(100); // False
 ```
 
 #### or
 
 ```js
-var snug = require('snug');
+var check = snug.logic.or([
+  lodash.isNumber,
+  function(value) { return value === 'foobar'; }
+]);
 
-// Input value must be a number OR less than 10
-var inc = snug.annotate({
-  inputs: [snug.logic.or([
-    lodash.isNumber,
-    function(value) { return value < 10; }
-  ])],
-  outputs: [lodash.isNumber],
-  fn: function(a) {
-    return a + 1;
-  }
-});
+check(4); // True
+check('foobar'); // True
+check('hello world'); // False
 ```
 
 #### nor
 
 ```js
-var snug = require('snug');
+var check = snug.logic.nor([
+  lodash.isNumber,
+  function(value) { return value === 'foobar'; }
+]);
 
-// Input value must not be a number nor less than 10
-// Not sure how this function would work :)
-var inc = snug.annotate({
-  inputs: [snug.logic.nor([
-    lodash.isNumber,
-    function(value) { return value < 10; }
-  ])],
-  outputs: [lodash.isNumber],
-  fn: function(a) {
-    return a + 1;
-  }
-});
+check(9); // False
+check('foobar'); // False
+check('hello world'); // True
 ```
 
 #### wildcard
@@ -199,17 +182,10 @@ var inc = snug.annotate({
 Maybe you don't care about the type of a given value. If so, you can use `wildcard` to say any type is fine.
 
 ```js
-var snug = require('snug');
+var check = snug.logic.wildcard();
 
-// Input value can be of any type
-// True is always returned
-var inc = snug.annotate({
-  inputs: [snug.logic.wildcard()],
-  outputs: [lodash.isNumber],
-  fn: function(a) {
-    return a + 1;
-  }
-});
+// No matter what value is given, it will be true
+check('anything'); // True
 ```
 
 #### optional
@@ -222,3 +198,19 @@ var check = snug.logic.optional(lodash.isNumber);
 check(4); // True
 check('4'); // False
 check(); // True
+```
+
+### Access to Config
+
+Sometimes, when you create an annotation, you may want to access the configuration you passed to it. Each function exposes this through a `$config` property.
+
+This is useful for testing annotations.
+
+```js
+var sumAnnotation = snug.annotate({
+  inputs: [lodash.isNumber, lodash.isNumber],
+  outputs: [lodash.isNumber]
+});
+
+sumAnnotation.$config; // This is the object with inputs and outputs provided above
+```

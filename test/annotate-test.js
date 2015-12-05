@@ -13,6 +13,10 @@ describe('Annotate', function() {
       }
     });
 
+    it('makes the `$config` available', function() {
+      expect(sum.$config.inputs).to.be.defined;
+    });
+
     context('when given the correct values', function() {
       it('returns the results', function() {
         expect(sum(3, 4)).to.equal(7);
@@ -40,6 +44,10 @@ describe('Annotate', function() {
     var sumAnnotation = annotate({
       inputs: [lodash.isNumber, lodash.isNumber],
       outputs: [lodash.isNumber]
+    });
+
+    it('makes the `$config` available', function() {
+      expect(sumAnnotation.$config.inputs).to.be.defined;
     });
 
     it('accepts a function to annotate', function() {
