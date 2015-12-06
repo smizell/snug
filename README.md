@@ -132,6 +132,21 @@ check([1, 2, 3]); // True
 check([1, '2', 3]); // False
 ```
 
+#### Compare Array
+
+You can use this function to compare two arrays.
+
+```js
+var check = snug.structures.compareArray([
+  lodash.isNumber,
+  lodash.isString,
+  lodash.isNumber
+]);
+
+check([1, '2', 3]); // True
+check([1, 2, 3]); // False
+```
+
 #### Object Structure
 
 This looks at every key in an object and checks to see if each passes the check.
@@ -199,6 +214,15 @@ check('foobar'); // False
 check('hello world'); // True
 ```
 
+### not
+
+```js
+var check = snug.logic.not(lodash.isArray);
+
+check(9); // True
+check([1, 2, 3]); // False
+```
+
 #### wildcard
 
 Maybe you don't care about the type of a given value. If so, you can use `wildcard` to say any type is fine.
@@ -212,7 +236,7 @@ check('anything'); // True
 
 #### optional
 
-You may have figured out to use the `or` function with an `isUndefined` check as the first item, but that gets kind of verbose after a while. You can use `optional` to do a check or pass if the value is undefined.
+You may have figured out to use the `or` function with an `isUndefined` check as the first item to make checks options, but that gets kind of verbose after a while. You can use `optional` to do a check or pass if the value is undefined.
 
 ```js
 var check = snug.logic.optional(lodash.isNumber);
@@ -220,6 +244,17 @@ var check = snug.logic.optional(lodash.isNumber);
 check(4); // True
 check('4'); // False
 check(); // True
+```
+
+#### equalLengthWith
+
+One test is to ensure two arrays are of equal length.
+
+```js
+var check = snug.logic.equalLengthWith([1, 2, 3]);
+
+check([1, 2, 3]); // True
+check([1, 2]); // False
 ```
 
 ### Access to Config

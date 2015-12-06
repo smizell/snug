@@ -27,6 +27,36 @@ describe('Structures', function() {
     });
   });
 
+  describe('#compareArray', function() {
+    var check;
+
+    before(function() {
+      check = structures.compareArray([
+        lodash.isNumber,
+        lodash.isString,
+        lodash.isNumber
+      ]);
+    });
+
+    context('when given a correct value', function() {
+      it('returns true', function() {
+        expect(check([1, '2', 3])).to.be.true;
+      });
+    });
+
+    context('when given an incorrect value', function() {
+      it('returns false', function() {
+        expect(check([1, 2, 3])).to.be.false;
+      });
+    });
+
+    context('when not given an array', function() {
+      it('returns false', function() {
+        expect(check(1)).to.be.false;
+      });
+    });
+  });
+
   describe('#object', function() {
     var check = structures.object({
       foo: lodash.isNumber,
@@ -54,6 +84,7 @@ describe('Structures', function() {
     context('when not given an object', function() {
       it('returns false', function() {
         expect(check(1)).to.be.false;
+        expect(check([1, 2])).to.be.false;
       });
     });
 
