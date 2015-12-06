@@ -4,7 +4,8 @@
   "description": "Make your functions safe.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "npm test"
   },
   "author": "Stephen Mizell",
   "license": "MIT",
