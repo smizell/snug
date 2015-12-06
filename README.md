@@ -104,7 +104,7 @@ You can take your annotations and call the first matching function using `patter
 var fib = snug.patternMatch([
   {
     inputs: [function(n) { return n === 0 || n === 1; }],
-    fn: function(n) { return 1; }
+    fn: function() { return 1; }
   },
   {
     inputs: [function(n) { return n > 0; }],
@@ -252,6 +252,17 @@ One test is to ensure two arrays are of equal length.
 
 ```js
 var check = snug.logic.equalLengthWith([1, 2, 3]);
+
+check([1, 2, 3]); // True
+check([1, 2]); // False
+```
+
+#### equals
+
+Allows for deep testing equality.
+
+```js
+var check = snug.logic.equals([1, 2, 3]);
 
 check([1, 2, 3]); // True
 check([1, 2]); // False

@@ -134,4 +134,20 @@ describe('Logic', function() {
       });
     });
   });
+
+  describe('#equals', function() {
+    var check = logic.equals([1, 2, 3]);
+
+    context('when given a valid value', function() {
+      it('returns true', function() {
+        expect(check([1, 2, 3])).to.be.true;
+      });
+    });
+
+    context('when given an invalid value', function() {
+      it('returns false', function() {
+        expect(check([1, 2])).to.be.false;
+      });
+    });
+  });
 });
