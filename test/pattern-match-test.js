@@ -49,9 +49,7 @@ describe('Pattern Match', function() {
           inputs: [lodash.isString],
           fn: function(name) { return 'Hello, ' + name; }
         }
-      ])
-
-      fn.extend({
+      ]).extend({
         catch: function(error) {
           return 'Catch function called';
         }
