@@ -103,4 +103,28 @@ describe('Annotate', function() {
       expect(sum('a', 'b')).to.equal(0);
     });
   });
+
+  context('#extend', function() {
+    var fn;
+
+    before(function() {
+      fn = annotate({
+        inputs: [lodash.isNumber, lodash.isNumber],
+        outputs: [lodash.isNumber],
+        fn: function(a, b) {
+          return a + b;
+        }
+      });
+
+      fn.extend({
+        catch: function(error) {
+          return 'Catch function';
+        }
+      })
+    });
+
+    it('extends the original config', function() {
+      expect(fn('a')).to.equal('Catch function');
+    });
+  });
 });

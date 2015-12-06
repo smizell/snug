@@ -286,3 +286,23 @@ var sumAnnotation = snug.annotate({
 
 sumAnnotation.$config; // This is the object with inputs and outputs provided above
 ```
+
+### Extending Existing Annotations
+
+If you want to mutate an existing annotation, you can use `extend`.
+
+```js
+// This function does not have a catch function
+var sum = snug.annotate({
+  inputs: [lodash.isNumber, lodash.isNumber],
+  outputs: [lodash.isNumber],
+  fn: function(a, b) {
+    return a + b
+  }
+});
+
+// Now it does
+sum.extend({
+  catch: function(error) {}
+});
+```
