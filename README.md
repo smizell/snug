@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/smizell/snug.svg?branch=master)](https://travis-ci.org/smizell/snug)
 
-Make your functions safe.
+Make your functions safe at run time. Sometimes your may get data from sources during run time (e.g. the web) where you are not able to take advantage of compile-time type checking. This is for handling checks and pattern matching at run time.
 
 ## Install
 
@@ -289,7 +289,7 @@ sumAnnotation.$config; // This is the object with inputs and outputs provided ab
 
 ### Extending Existing Annotations
 
-If you want to mutate an existing annotation, you can use `extend`.
+If you want an annotation based on an existing annotation, you can use `extend`.
 
 ```js
 // This function does not have a catch function
@@ -301,8 +301,11 @@ var sum = snug.annotate({
   }
 });
 
-// Now it does
-sum.extend({
+// This one does, and is a new function
+var sumWithCatch = sum.extend({
   catch: function(error) {}
 });
+
+sum('a'); // Error is not caught
+sumWithCatch('a'); // Error is caught
 ```

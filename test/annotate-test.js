@@ -105,10 +105,11 @@ describe('Annotate', function() {
   });
 
   context('#extend', function() {
-    var fn;
+    var fn1;
+    var fn2;
 
     before(function() {
-      fn = annotate({
+      fn1 = annotate({
         inputs: [lodash.isNumber, lodash.isNumber],
         outputs: [lodash.isNumber],
         fn: function(a, b) {
@@ -116,7 +117,7 @@ describe('Annotate', function() {
         }
       });
 
-      fn.extend({
+      fn2 = fn1.extend({
         catch: function(error) {
           return 'Catch function';
         }
@@ -124,7 +125,13 @@ describe('Annotate', function() {
     });
 
     it('extends the original config', function() {
-      expect(fn('a')).to.equal('Catch function');
+      expect(fn2('a')).to.equal('Catch function');
+    });
+
+    it('does not mutate the original', function() {
+      expect(function() {
+        fn1('a');
+      }).to.throw(TypeError);
     });
   });
 });
