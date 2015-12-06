@@ -120,7 +120,7 @@ fib(-10); // Error: No pattern match found
 fib('10'); // TypeError because it requires a number
 ```
 
-You can also pass in a `catch` function that works like it does with annotations. Note that any `catch` function on the provided annotations will take priority to the `catch` function provided to `patternMatch`.
+You may use `.extend` to add a `catch` function for the `patternMatch` function, which returns an annotation.
 
 ### Structures
 
