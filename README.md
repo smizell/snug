@@ -96,6 +96,28 @@ var myFn = new MyFunction(1);
 myFn.add(2); // Returns 3
 ```
 
+### Pattern Matching
+
+You can take your annotations and call the first matching function using `patternMatch`.
+
+```js
+var fib = snug.patternMatch([
+  {
+    inputs: [function(n) { return n === 0 || n === 1; }],
+    fn: function(n) { return 1; }
+  },
+  {
+    inputs: [function(n) { return n > 0; }],
+    fn: function(n) { return fib(n - 2) + fib(n - 1); }
+  }
+]);
+
+fib(10); // 89
+fib(-10); // Error: No pattern match found
+```
+
+You can also pass in a `catch` function that works like it does with annotations. Note that any `catch` function on the provided annotations will take priority to the `catch` function provided to `patternMatch`.
+
 ### Structures
 
 You may want to iterate over an object or array to see if every item passes a certain check. There are two functions to help with this.
