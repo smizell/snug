@@ -101,19 +101,23 @@ myFn.add(2); // Returns 3
 You can take your annotations and call the first matching function using `patternMatch`.
 
 ```js
-var fib = snug.patternMatch([
-  {
-    inputs: [function(n) { return n === 0 || n === 1; }],
-    fn: function() { return 1; }
-  },
-  {
-    inputs: [function(n) { return n > 0; }],
-    fn: function(n) { return fib(n - 2) + fib(n - 1); }
-  }
-]);
+var fib = snug.annotate({
+  inputs: [lodash.isNumber],
+  fn: snug.patternMatch([
+    {
+      inputs: [function(n) { return n === 0 || n === 1; }],
+      fn: function() { return 1; }
+    },
+    {
+      inputs: [function(n) { return n > 0; }],
+      fn: function(n) { return fib(n - 2) + fib(n - 1); }
+    }
+  ])
+});
 
 fib(10); // 89
 fib(-10); // Error: No pattern match found
+fib('10'); // TypeError because it requires a number
 ```
 
 You can also pass in a `catch` function that works like it does with annotations. Note that any `catch` function on the provided annotations will take priority to the `catch` function provided to `patternMatch`.
