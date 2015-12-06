@@ -118,4 +118,20 @@ describe('Logic', function() {
       });
     });
   });
+
+  describe('#not', function() {
+    var check = logic.not(lodash.isArray);
+
+    context('when given a valid value', function() {
+      it('returns true', function() {
+        expect(check(4)).to.be.true;
+      });
+    });
+
+    context('when given an invalid value', function() {
+      it('returns false', function() {
+        expect(check([1, 2])).to.be.false;
+      });
+    });
+  });
 });
